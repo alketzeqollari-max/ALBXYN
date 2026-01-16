@@ -1,13 +1,13 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "vite",
-  "outputDirectory": "dist",
-  "env": {
-    "VITE_API_BASE_URL": {
-      "description": "Backend API URL",
-      "required": false
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
+    "framework": "vite",
+    "outputDirectory": "dist",
+    "env": {
+        "VITE_API_BASE_URL": {
+            "description": "Backend API URL",
+            "required": false
+        }
     }
-  }
 }
