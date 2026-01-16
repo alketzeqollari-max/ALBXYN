@@ -1,0 +1,42 @@
+{
+    "name": "Phrase",
+    "type": "object",
+    "properties": {
+        "phrase": {
+            "type": "string",
+            "description": "The Albanian phrase/idiom"
+        },
+        "category": {
+            "type": "string",
+            "enum": [
+                "em\u00ebrore",
+                "mbiem\u00ebrore",
+                "ndajfoljore",
+                "foljore"
+            ],
+            "description": "Grammatical category"
+        },
+        "literal_meaning": {
+            "type": "string",
+            "description": "Literal meaning of the phrase"
+        },
+        "figurative_meaning": {
+            "type": "string",
+            "description": "Figurative/idiomatic meaning"
+        },
+        "example_usage": {
+            "type": "string",
+            "description": "Example sentence using the phrase"
+        },
+        "notes": {
+            "type": "string",
+            "description": "Additional cultural or linguistic notes"
+        }
+    },
+    "required": [
+        "phrase",
+        "category",
+        "literal_meaning",
+        "figurative_meaning"
+    ]
+}

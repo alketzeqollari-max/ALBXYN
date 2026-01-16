@@ -1,0 +1,32 @@
+import React from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { MapPin, Users, Sparkles, BookOpen } from 'lucide-react';
+
+export default function CityModal({ city, isOpen, onClose, wisdomData }) {
+    if (!city) return null;
+
+    const regionColors = {
+        Veri: 'bg-blue-100 text-blue-800 dark:bg-blue-950/50 dark:text-blue-400',
+        Qendër: 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-400',
+        Jug: 'bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-400',
+    };
+
+    // Check if we have wisdom data for this city
+    const hasWisdom = wisdomData && wisdomData.wise_words && wisdomData.wise_words.length > 0;
+
+    return (
+        <Dialog open= { isOpen } onOpenChange = { onClose } >
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto" >
+                <DialogHeader>
+                <div className="flex items-center gap-3 mb-2" >
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center shadow-lg" >
+                        <MapPin className="w-6 h-6 text-white" />
+                            </div>
+                            < div className = "flex-1" >
+                                <DialogTitle className="text-2xl font-bold" > { city.name } </DialogTitle>
+                                    < Badge className = {`mt-1 ${regionColors[city.region]}`
+}>
+    { city.region === 'Veri' ? 'Veriu' : city.region === 'Qendër' ? 'Qendra' : 'Jugu' }
+    </Badge>

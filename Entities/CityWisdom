@@ -1,0 +1,41 @@
+{
+    "name": "CityWisdom",
+    "type": "object",
+    "properties": {
+        "city_name": {
+            "type": "string",
+            "description": "Name of the Albanian municipality"
+        },
+        "region": {
+            "type": "string",
+            "enum": [
+                "Veri",
+                "Qend\u00ebr",
+                "Jug"
+            ],
+            "description": "Region of Albania"
+        },
+        "wise_words": {
+            "type": "array",
+            "description": "Collection of wise words from this city",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "The wise saying or proverb"
+                    },
+                    "meaning": {
+                        "type": "string",
+                        "description": "Explanation of the saying"
+                    },
+                    "origin": {
+                        "type": "string",
+                        "description": "Historical or cultural origin"
+                    }
+                }
+            }
+        },
+        "population": {
+            "type": "number",
+            "description": "Approximate population"

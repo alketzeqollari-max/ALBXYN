@@ -1,0 +1,189 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '../utils';
+import { Book, Map, MessageSquare, History, ArrowRight, Sparkles, Heart, Globe } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+
+export default function Home() {
+    const features = [
+        {
+            icon: Book,
+            title: 'Frazeologji Shqiptare',
+            description: 'Zbuloni një koleksion të pasur të shprehjeve idiomatike të organizuara sipas kategorive gramatikore.',
+            link: 'Phraseology',
+            gradient: 'from-blue-500 to-cyan-500',
+        },
+        {
+            icon: Map,
+            title: 'Harta e Mençurisë',
+            description: 'Eksploroni fjalë të urta nga të 61 bashkitë e Shqipërisë në një hartë interaktive.',
+            link: 'AlbaniaMap',
+            gradient: 'from-red-500 to-rose-500',
+            badge: 'E Re',
+        },
+        {
+            icon: MessageSquare,
+            title: 'Asistent AI',
+            description: 'Bisedoni me asistentin AI për të mësuar më shumë rreth gjuhës shqipe në mënyrë interaktive.',
+            link: 'AIAssistant',
+            gradient: 'from-purple-500 to-pink-500',
+        },
+        {
+            icon: History,
+            title: 'Historia e Gjuhës',
+            description: 'Mësoni për rrënjët dhe evolucionin e gjuhës shqipe përmes shekujve.',
+            link: 'About',
+            gradient: 'from-amber-500 to-orange-500',
+        },
+    ];
+
+    const stats = [
+        { value: '1000+', label: 'Frazeologji' },
+        { value: '61', label: 'Qytete' },
+        { value: '4', label: 'Kategori' },
+        { value: '∞', label: 'Mençuri' },
+    ];
+
+    return (
+        <div className="min-h-screen">
+            {/* Hero Section */}
+            <section className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 via-rose-500/10 to-red-600/20 dark:from-red-900/40 dark:via-rose-900/20 dark:to-red-950/40" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-red-400/20 via-transparent to-transparent dark:from-red-600/30" />
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+                    <div className="text-center max-w-4xl mx-auto">
+                        <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-950/50 dark:to-rose-950/50 border-2 border-red-300 dark:border-red-700 mb-6 shadow-lg shadow-red-500/20">
+                            <Sparkles className="w-5 h-5 text-red-600 dark:text-red-400 animate-pulse" />
+                            <span className="text-sm font-bold text-red-700 dark:text-red-300">
+                                Platforma Arsimore Shqiptare
+                            </span>
+                        </div>
+
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-red-900 via-red-600 to-red-900 dark:from-red-400 dark:via-red-300 dark:to-red-400 bg-clip-text text-transparent leading-tight drop-shadow-2xl">
+                            Zbuloni Pasurinë e<br />Gjuhës Shqipe
+                        </h1>
+
+                        <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+                            Eksploroni frazeologjinë, mençurinë popullore dhe thesaret kulturore të gjuhës shqipe
+                            në një platformë moderne dhe interaktive.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link to={createPageUrl('Phraseology')}>
+                                <Button size="lg" className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:from-red-700 hover:via-red-800 hover:to-red-900 text-white shadow-2xl shadow-red-500/50 group px-8 py-6 text-lg font-bold border-2 border-red-500">
+                                    Eksploro Frazeologjinë
+                                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+                                </Button>
+                            </Link>
+                            <Link to={createPageUrl('AlbaniaMap')}>
+                                <Button size="lg" variant="outline" className="border-2 border-red-600 dark:border-red-500 text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 group px-8 py-6 text-lg font-bold shadow-lg">
+                                    <Map className="w-5 h-5 mr-2" />
+                                    Shiko Hartën
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute top-20 left-10 w-32 h-32 bg-red-500/30 rounded-full blur-3xl animate-pulse" />
+                <div className="absolute bottom-20 right-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+                <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-rose-500/20 rounded-full blur-2xl" />
+            </section>
+
+            {/* Stats Section */}
+            <section className="py-12 border-y-2 border-red-200 dark:border-red-900/30 bg-gradient-to-r from-red-50 via-white to-red-50 dark:from-slate-950 dark:via-red-950/10 dark:to-slate-950 shadow-inner">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {stats.map((stat, index) => (
+                            <div key={index} className="text-center">
+                                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 to-slate-900 dark:from-red-500 dark:to-white bg-clip-text text-transparent mb-2">
+                                    {stat.value}
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                    {stat.label}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-red-800 via-red-600 to-red-800 dark:from-red-400 dark:via-red-300 dark:to-red-400 bg-clip-text text-transparent">
+                            Çfarë Ofrojmë
+                        </h2>
+                        <p className="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto font-medium">
+                            Mjete të fuqishme për të eksploruar dhe mësuar gjuhën shqipe
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {features.map((feature, index) => {
+                            const Icon = feature.icon;
+                            return (
+                                <Link key={index} to={createPageUrl(feature.link)}>
+                                    <Card className="group h-full border-2 border-red-100 dark:border-red-900/30 hover:border-red-500 dark:hover:border-red-500 transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/30 cursor-pointer overflow-hidden hover:scale-105">
+                                        <CardContent className="p-6">
+                                            <div className="flex items-start gap-4">
+                                                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform`}>
+                                                    <Icon className="w-6 h-6 text-white" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center gap-2 mb-2">
+                                                        <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors">
+                                                            {feature.title}
+                                                        </h3>
+                                                        {feature.badge && (
+                                                            <span className="px-2 py-1 text-xs font-bold bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-500 rounded-full">
+                                                                {feature.badge}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                                                        {feature.description}
+                                                    </p>
+                                                </div>
+                                                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-red-600 dark:group-hover:text-red-500 group-hover:translate-x-1 transition-all" />
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="py-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <Card className="relative overflow-hidden border-4 border-red-500/40 dark:border-red-500/50 shadow-2xl shadow-red-500/20">
+                        <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 via-rose-500/10 to-red-600/20 dark:from-red-900/40 dark:via-rose-900/20 dark:to-red-950/40" />
+                        <CardContent className="relative p-12 text-center">
+                            <Heart className="w-16 h-16 text-red-600 dark:text-red-500 mx-auto mb-6 animate-pulse" />
+                            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-red-900 via-red-700 to-red-900 dark:from-red-400 dark:via-red-300 dark:to-red-400 bg-clip-text text-transparent">
+                                Ruajmë dhe Nderojmë Gjuhën Tonë
+                            </h2>
+                            <p className="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-8 text-lg font-medium leading-relaxed">
+                                Kjo platformë është një kontribut për ruajtjen dhe promovimin e gjuhës shqipe,
+                                duke bashkuar traditat me teknologjinë moderne.
+                            </p>
+                            <Link to={createPageUrl('About')}>
+                                <Button size="lg" variant="outline" className="border-2 border-red-600 text-red-700 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 font-bold px-8 py-6 text-lg shadow-lg">
+                                    <Globe className="w-5 h-5 mr-2" />
+                                    Mëso Më Shumë
+                                </Button>
+                            </Link>
+                        </CardContent>
+                    </Card>
+                </div>
+            </section>
+        </div>
+    );
+}

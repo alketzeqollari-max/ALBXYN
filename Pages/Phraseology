@@ -1,0 +1,186 @@
+import React, { useState } from 'react';
+import { base44 } from '@/api/mockDataClient';
+import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Search, Book, Sparkles, Filter } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
+
+export default function Phraseology() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('all');
+
+    const { data: phrases = [], isLoading } = useQuery({
+        queryKey: ['phrases'],
+        queryFn: () => base44.entities.Phrase.list(),
+        initialData: [],
+    });
+
+    const categories = [
+        { value: 'all', label: 'Të gjitha', icon: '📚', color: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300' },
+        { value: 'emërore', label: 'Emërore', icon: '📝', color: 'bg-blue-100 text-blue-800 dark:bg-blue-950/50 dark:text-blue-400' },
+        { value: 'mbiemërore', label: 'Mbiemërore', icon: '🎨', color: 'bg-purple-100 text-purple-800 dark:bg-purple-950/50 dark:text-purple-400' },
+        { value: 'ndajfoljore', label: 'Ndajfoljore', icon: '⚡', color: 'bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-400' },
+        { value: 'foljore', label: 'Foljore', icon: '🔄', color: 'bg-green-100 text-green-800 dark:bg-green-950/50 dark:text-green-400' },
+    ];
+
+    const filteredPhrases = phrases.filter((phrase) => {
+        const matchesSearch =
+            phrase.phrase?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            phrase.figurative_meaning?.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = selectedCategory === 'all' || phrase.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
+
+    const getCategoryData = (value) => categories.find((c) => c.value === value) || categories[0];
+
+    return (
+        <div className="min-h-screen py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header */}
+                <div className="text-center mb-12">
+                    <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-red-100 to-rose-100 dark:from-red-950/50 dark:to-rose-950/50 border-2 border-red-300 dark:border-red-700 mb-4 shadow-lg shadow-red-500/20">
+                        <Book className="w-5 h-5 text-red-600 dark:text-red-400 animate-pulse" />
+                        <span className="text-sm font-bold text-red-700 dark:text-red-300">
+                            Koleksioni i Frazeologjisë
+                        </span>
+                    </div>
+
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-red-900 via-red-600 to-red-900 dark:from-red-400 dark:via-red-300 dark:to-red-400 bg-clip-text text-transparent drop-shadow-lg">
+                        Frazeologji Shqiptare
+                    </h1>
+
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
+                        Shprehje idiomatike që pasqyrojnë kulturën, mentalitetin dhe mençurinë popullore shqiptare
+                    </p>
+                </div>
+
+                {/* Search and Filters */}
+                <div className="mb-8 space-y-4">
+                    <div className="relative max-w-2xl mx-auto">
+                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <Input
+                            placeholder="Kërko frazeologji..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="pl-12 h-14 text-lg"
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-2 justify-center flex-wrap">
+                        <Filter className="w-4 h-4 text-slate-500" />
+                        {categories.map((cat) => (
+                            <Badge
+                                key={cat.value}
+                                className={`cursor-pointer px-4 py-2 text-sm ${selectedCategory === cat.value ? cat.color : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400'
+                                    }`}
+                                onClick={() => setSelectedCategory(cat.value)}
+                            >
+                                {cat.icon} {cat.label}
+                            </Badge>
+                        ))}
+                    </div>
+
+                    <div className="text-center text-sm text-slate-600 dark:text-slate-400">
+                        {filteredPhrases.length} frazeologji {selectedCategory !== 'all' && `në kategorinë "${getCategoryData(selectedCategory).label}"`}
+                    </div>
+                </div>
+
+                {/* Phrases Grid */}
+                {isLoading ? (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[...Array(6)].map((_, i) => (
+                            <Card key={i}>
+                                <CardHeader>
+                                    <Skeleton className="h-6 w-3/4" />
+                                </CardHeader>
+                                <CardContent className="space-y-3">
+                                    <Skeleton className="h-4 w-full" />
+                                    <Skeleton className="h-4 w-5/6" />
+                                    <Skeleton className="h-4 w-4/6" />
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                ) : filteredPhrases.length > 0 ? (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {filteredPhrases.map((phrase, index) => {
+                            const categoryData = getCategoryData(phrase.category);
+                            return (
+                                <Card
+                                    key={index}
+                                    className="group hover:shadow-2xl transition-all duration-300 border-2 border-red-100 dark:border-red-900/30 hover:border-red-500 dark:hover:border-red-500 overflow-hidden hover:scale-105 shadow-lg shadow-red-500/10"
+                                >
+                                    <CardHeader className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 border-b">
+                                        <div className="flex items-start justify-between gap-2 mb-2">
+                                            <CardTitle className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                                                "{phrase.phrase}"
+                                            </CardTitle>
+                                            <Sparkles className="w-5 h-5 text-red-500 flex-shrink-0 group-hover:animate-pulse" />
+                                        </div>
+                                        <Badge className={categoryData.color}>
+                                            {categoryData.icon} {categoryData.label}
+                                        </Badge>
+                                    </CardHeader>
+                                    <CardContent className="p-6 space-y-4">
+                                        <div>
+                                            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                                                Kuptimi Literal
+                                            </p>
+                                            <p className="text-sm text-slate-700 dark:text-slate-300">
+                                                {phrase.literal_meaning}
+                                            </p>
+                                        </div>
+
+                                        <div>
+                                            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                                                Kuptimi Figurativ
+                                            </p>
+                                            <p className="text-sm font-medium text-slate-900 dark:text-white">
+                                                {phrase.figurative_meaning}
+                                            </p>
+                                        </div>
+
+                                        {phrase.example_usage && (
+                                            <div>
+                                                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                                                    Shembull Përdorimi
+                                                </p>
+                                                <p className="text-sm text-slate-700 dark:text-slate-300 italic">
+                                                    "{phrase.example_usage}"
+                                                </p>
+                                            </div>
+                                        )}
+
+                                        {phrase.notes && (
+                                            <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                                                <p className="text-xs font-semibold text-amber-600 dark:text-amber-500 mb-1 flex items-center gap-1">
+                                                    📌 Nota
+                                                </p>
+                                                <p className="text-xs text-slate-600 dark:text-slate-400">
+                                                    {phrase.notes}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <Card className="max-w-md mx-auto">
+                        <CardContent className="p-12 text-center">
+                            <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mx-auto mb-4">
+                                <Search className="w-8 h-8 text-slate-400" />
+                            </div>
+                            <p className="text-slate-600 dark:text-slate-400">
+                                Nuk u gjet asnjë frazeologji që përputhet me kërkimin tuaj.
+                            </p>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
+        </div>
+    );
+}

@@ -1,0 +1,31 @@
+import React from 'react';
+
+// Simplified Albania map with 61 municipalities as clickable regions
+// Coordinates are approximate for demonstration - in production, use precise SVG paths
+
+const municipalities = [
+  // North Region (Veri)
+  { id: 1, name: 'Shkodër', region: 'Veri', x: 180, y: 80 },
+  { id: 2, name: 'Malësi e Madhe', region: 'Veri', x: 150, y: 50 },
+  { id: 3, name: 'Vau i Dejës', region: 'Veri', x: 200, y: 100 },
+  { id: 4, name: 'Pukë', region: 'Veri', x: 220, y: 60 },
+  { id: 5, name: 'Kukës', region: 'Veri', x: 280, y: 40 },
+  { id: 6, name: 'Has', region: 'Veri', x: 300, y: 20 },
+  { id: 7, name: 'Tropojë', region: 'Veri', x: 320, y: 50 },
+  { id: 8, name: 'Lezhë', region: 'Veri', x: 200, y: 140 },
+  { id: 9, name: 'Mirditë', region: 'Veri', x: 240, y: 120 },
+  { id: 10, name: 'Kurbin', region: 'Veri', x: 180, y: 160 },
+  
+  // Central Region (Qendër)
+  { id: 11, name: 'Tiranë', region: 'Qendër', x: 220, y: 200 },
+  { id: 12, name: 'Durrës', region: 'Qendër', x: 180, y: 210 },
+  { id: 13, name: 'Kavajë', region: 'Qendër', x: 200, y: 230 },
+  { id: 14, name: 'Krujë', region: 'Qendër', x: 200, y: 180 },
+  { id: 15, name: 'Mat', region: 'Qendër', x: 260, y: 160 },
+  { id: 16, name: 'Dibër', region: 'Qendër', x: 300, y: 140 },
+  { id: 17, name: 'Bulqizë', region: 'Qendër', x: 280, y: 120 },
+  { id: 18, name: 'Elbasan', region: 'Qendër', x: 260, y: 220 },
+  { id: 19, name: 'Peqin', region: 'Qendër', x: 240, y: 240 },
+  { id: 20, name: 'Gramsh', region: 'Qendër', x: 280, y: 260 },
+  { id: 21, name: 'Librazhd', region: 'Qendër', x: 300, y: 240 },
+  { id: 22, name: 'Pogradec', region: 'Qendër', x: 340, y: 260 },
